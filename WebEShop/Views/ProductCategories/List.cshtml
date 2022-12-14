@@ -1,9 +1,18 @@
-﻿
+﻿@using WebEShop.Models;
 @{
     ViewBag.Title = "List";
 }
 
 <h2>List</h2>
-@ViewBag.ProductCategories[0]
-@ViewBag.ProductCategories[1]
+
+<ul>
+    <li>Id, Title, Description, Products Count</li>
+    @{
+        foreach (ProductCategory pc in ViewBag.ProductCategories)
+        {
+
+            <li>@pc.Id, @pc.Title, @pc.Description, @pc.Products.Count()</li>
+        }
+    }
+</ul>
 
