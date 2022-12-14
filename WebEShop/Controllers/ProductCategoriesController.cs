@@ -24,5 +24,12 @@ namespace WebEShop.Controllers
             ViewBag.ProductCategories = listOfProductCategories;
             return View();
         }
+
+        public ActionResult Details() 
+        {
+
+            return null;
+        
+        }
     }
 }
