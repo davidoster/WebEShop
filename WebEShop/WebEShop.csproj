@@ -103,7 +103,8 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
+    <Content Include="koukou.html" />
+    <!--<Content Include="index.html" />-->
     <Content Include="Scripts\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Scripts\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Scripts\bootstrap\css\bootstrap-reboot.css" />
@@ -255,6 +256,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -371,6 +373,8 @@
     <Content Include="Scripts\bootstrap\scss\vendor\_rfs.scss" />
     <Content Include="Scripts\jquery-validate\jquery-validation-sri.json" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Index.cshtml" />
+    <Content Include="Views\ProductCategories\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
