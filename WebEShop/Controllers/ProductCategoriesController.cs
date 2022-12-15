@@ -60,5 +60,32 @@ namespace WebEShop.Controllers
         {
             return View(context.ProductCategories.Find(id));
         }
+
+        public ActionResult Delete(int id)
+        {
+            //var productCategoryToBeDeleted = context.ProductCategories.Find(id);
+            //if(productCategoryToBeDeleted != null)
+            //{
+            //    context.ProductCategories.Remove(productCategoryToBeDeleted);
+            //}
+
+            using (var productCategoryToBeDeleted1 = context.ProductCategories.Find(id))
+            {
+                try
+                {
+                    context.ProductCategories.Remove(productCategoryToBeDeleted1);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Index?message=Product Category was not found!", "Home");
+                    //return ex.Message;
+                    //throw new NotFoundEntityException(ex.Message);
+                }
+                return RedirectToAction($"List?message=ProductCategory with {id} is deleted succesfully!");
+                //return "Deleted!";
+                
+            }
+        }
     }
 }
