@@ -392,6 +392,7 @@
     <Content Include="Views\ProductCategories\Index.cshtml" />
     <Content Include="Views\ProductCategories\List.cshtml" />
     <Content Include="Views\Kati\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

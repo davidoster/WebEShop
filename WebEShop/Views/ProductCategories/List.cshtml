@@ -1,18 +1,39 @@
-﻿@using WebEShop.Models;
+﻿@model IEnumerable<WebEShop.Models.ProductCategory>
+
 @{
     ViewBag.Title = "List";
 }
 
 <h2>List</h2>
 
-<ul>
-    <li>Id, Title, Description, Products Count</li>
-    @{
-        foreach (ProductCategory pc in ViewBag.ProductCategories)
-        {
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title) @* // Product Title *@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
 
-            <li>@pc.Id, @pc.Title, @pc.Description, @pc.Products.Count()</li>
-        }
-    }
-</ul>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(x => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
 
+</table>

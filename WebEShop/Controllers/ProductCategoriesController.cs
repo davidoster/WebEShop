@@ -43,20 +43,22 @@ namespace WebEShop.Controllers
             return View();
         }
 
-        public ViewResult List()
+        public ViewResult MyDummyList()
         {
             var listOfProductCategories = context.ProductCategories.ToList();
-            int idOfFirstProductOnCat0 = listOfProductCategories[0].Products.ToList()[0].Id;
+            //int idOfFirstProductOnCat0 = listOfProductCategories[0].Products.ToList()[0].Id;
             
             ViewBag.ProductCategories = listOfProductCategories;
             return View();
         }
 
-        public ActionResult Details() 
+        public ViewResult List()
         {
-
-            return null;
-        
+            return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
+        }
+        public ActionResult Details(int id) 
+        {
+            return View(context.ProductCategories.Find(id));
         }
     }
 }
