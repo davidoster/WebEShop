@@ -52,8 +52,9 @@ namespace WebEShop.Controllers
             return View();
         }
 
-        public ViewResult List()
+        public ViewResult List(string message)
         {
+            ViewBag.Message = message;
             return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }
         public ActionResult Details(int id) 
@@ -78,13 +79,12 @@ namespace WebEShop.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return RedirectToAction("Index?message=Product Category was not found!", "Home");
+                    return RedirectToAction("Index", "Home", new { message = $"Product Category with id {id} was not found!" });
                     //return ex.Message;
                     //throw new NotFoundEntityException(ex.Message);
                 }
-                return RedirectToAction($"List?message=ProductCategory with {id} is deleted succesfully!");
-                //return "Deleted!";
-                
+                string path = $"ProductCategory with id {id} is deleted succesfully!";
+                return RedirectToAction("List", new { message = path });
             }
         }
     }
