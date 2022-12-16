@@ -16,6 +16,8 @@ namespace WebEShop.Controllers
         {
             context = new WebEShopDBContext();
         }
+
+        // HTTP CLASSICAL METHODS: POST(C), GET(R), PUT(U), DELETE(D)
         // GET: ProductCategories
         public ActionResult Index()
         {
@@ -52,9 +54,19 @@ namespace WebEShop.Controllers
             return View();
         }
 
+        [HttpGet]
         public ViewResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(ProductCategory productCategory)
+        {
+            context.ProductCategories.Add(productCategory); // ModelBinding
+            context.SaveChanges();
+            return RedirectToAction("List", 
+                new { message = "A New Product Category is been created successfully!" });
         }
 
         public ViewResult List(string message)

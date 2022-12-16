@@ -15,5 +15,11 @@ namespace WebEShop.Data
         }
         public DbSet<CustomerProduct> CustomerProducts { get; set; } // CustomerProducts
         public DbSet<ProductCategory> ProductCategories { get; set; } // ProductCategories
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<ProductCategory>().Property(p => p.Description).IsOptional();
+        }
     }
 }

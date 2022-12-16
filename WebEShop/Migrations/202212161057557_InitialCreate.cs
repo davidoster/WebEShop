@@ -26,7 +26,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        Title = c.String(nullable: false),
                         Description = c.String(),
                     })
                 .PrimaryKey(t => t.Id);

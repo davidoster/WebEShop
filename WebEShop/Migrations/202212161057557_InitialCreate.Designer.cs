@@ -13,7 +13,7 @@ namespace WebEShop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202212141430590_InitialCreate"; }
+            get { return "202212161057557_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
