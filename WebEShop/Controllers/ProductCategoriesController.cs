@@ -52,6 +52,11 @@ namespace WebEShop.Controllers
             return View();
         }
 
+        public ViewResult Create()
+        {
+            return View();
+        }
+
         public ViewResult List(string message)
         {
             ViewBag.Message = message;
