@@ -13,6 +13,6 @@ namespace WebEShop.Models
         public string Description { get; set; } // Description
         public double Price { get; set; } // Price
         //public int Product_CategoryId { get; set; } // Category_Id
-        public virtual ProductCategory Category { get; set; }
+        //public virtual ProductCategory Category { get; set; }
     }
 }

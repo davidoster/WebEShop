@@ -47,10 +47,10 @@ namespace WebEShop.Controllers
 
         public ViewResult MyDummyList()
         {
-            var listOfProductCategories = context.ProductCategories.ToList();
-            //int idOfFirstProductOnCat0 = listOfProductCategories[0].Products.ToList()[0].Id;
+            //var listOfProductCategories = context.ProductCategories.ToList();
+            ////int idOfFirstProductOnCat0 = listOfProductCategories[0].Products.ToList()[0].Id;
             
-            ViewBag.ProductCategories = listOfProductCategories;
+            //ViewBag.ProductCategories = listOfProductCategories;
             return View();
         }
 
