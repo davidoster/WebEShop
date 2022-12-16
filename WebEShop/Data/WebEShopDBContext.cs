@@ -20,6 +20,10 @@ namespace WebEShop.Data
         {
             //base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<ProductCategory>().Property(p => p.Description).IsOptional();
+            //modelBuilder.Entity<CustomerProduct>()
+            //    .HasRequired<ProductCategory>(c => c.Category).WithMany().WillCascadeOnDelete(true);
+            modelBuilder.Entity<ProductCategory>()
+                .HasMany<CustomerProduct>(product => product.Products).WithOptional().WillCascadeOnDelete(true);
         }
     }
 }
