@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -63,10 +64,21 @@ namespace WebEShop.Controllers
         [HttpPost]
         public ActionResult Save(ProductCategory productCategory)
         {
-            context.ProductCategories.Add(productCategory); // ModelBinding
+            string created = "created";
+            string updated = "updated";
+            string result = "";
+            if (productCategory.Id == 0)
+            {
+                result = created;
+            }
+            else
+            {
+                result = updated;
+            }
+            context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
             context.SaveChanges();
             return RedirectToAction("List", 
-                new { message = "A New Product Category is been created successfully!" });
+                new { message = $"A New Product Category is been {result} successfully!" });
         }
 
         public ViewResult List(string message)
@@ -103,6 +115,12 @@ namespace WebEShop.Controllers
                 string path = $"ProductCategory with id {id} is deleted succesfully!";
                 return RedirectToAction("List", new { message = path });
             }
+        }
+
+
+        public ActionResult Edit(int id)
+        {
+            return View(context.ProductCategories.Find(id));
         }
     }
 }
