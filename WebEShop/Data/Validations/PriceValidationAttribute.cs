@@ -24,7 +24,7 @@ namespace System.ComponentModel.DataAnnotations
             
             bool isValid = true;
 
-            if((double)value < _minValue || (double)value > _maxValue)
+            if(value != null && ((double)value < _minValue || (double)value > _maxValue))
             {
                 isValid = false;
             }
