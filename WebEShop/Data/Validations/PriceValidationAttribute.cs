@@ -19,7 +19,7 @@ namespace System.ComponentModel.DataAnnotations
             _maxValue = maxValue;
         }
 
-        public override bool IsValid(object value) { //IsValid(double minValue, double maxValue)
+        public override bool IsValid(object value) //IsValid(double minValue, double maxValue)
         {
             
             bool isValid = true;
@@ -29,25 +29,6 @@ namespace System.ComponentModel.DataAnnotations
                 isValid = false;
             }
             return isValid;
-
-
-
-
-            //if (value < decimal.Zero)
-            //{
-            //    isValid = false;
-            //}
-
-            //if (isValid)
-            //{
-            //    return ValidationResult.Success;
-            //}
-            //else
-            //{
-            //    return new ValidationResult(
-            //        string.Format("The field {0} must be greater than or equal to 0.", context.MemberName),
-            //        new List<string>() { context.MemberName });
-            //}
         }
 
         public override string FormatErrorMessage(string name)
