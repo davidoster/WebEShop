@@ -265,6 +265,7 @@
     <Compile Include="Controllers\KatiController.cs" />
     <Compile Include="Controllers\NotFoundEntityException.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
+    <Compile Include="Data\Validations\PriceValidationAttribute.cs" />
     <Compile Include="Data\WebEShopDBContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -272,6 +273,10 @@
     <Compile Include="Migrations\202212161427082_InitialCreate.cs" />
     <Compile Include="Migrations\202212161427082_InitialCreate.designer.cs">
       <DependentUpon>202212161427082_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301021009558_ChangesToCustomerProduct.cs" />
+    <Compile Include="Migrations\202301021009558_ChangesToCustomerProduct.designer.cs">
+      <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerProduct.cs" />
@@ -416,6 +421,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202212161427082_InitialCreate.resx">
       <DependentUpon>202212161427082_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301021009558_ChangesToCustomerProduct.resx">
+      <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

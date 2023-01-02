@@ -24,6 +24,7 @@ namespace WebEShop.Data
             //    .HasRequired<ProductCategory>(c => c.Category).WithMany().WillCascadeOnDelete(true);
             modelBuilder.Entity<ProductCategory>()
                 .HasMany<CustomerProduct>(product => product.Products).WithOptional().WillCascadeOnDelete(true);
+
         }
     }
 }

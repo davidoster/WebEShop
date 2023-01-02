@@ -15,10 +15,10 @@ namespace WebEShop
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas();  // Admin UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleConfig.RegisterBundles(BundleTable.Bundles); // css, js, images
         }
 
         protected void Session_Start(object sender, EventArgs e)
