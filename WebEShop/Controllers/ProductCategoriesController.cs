@@ -88,12 +88,15 @@ namespace WebEShop.Controllers
         public ViewResult List(string message)
         {
             ViewBag.Message = message;
-            return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
+            var categories = repository.GetAllCategories();
+            return View(categories);
+            //return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }
 
         public ActionResult Details(int id)
         {
-            using (var category = context.ProductCategories.Find(id))
+            using (var category = repository.GetCategory(id))
+            //using (var category = context.ProductCategories.Find(id))
             {
                 if(category != null)
                 {
@@ -118,28 +121,13 @@ namespace WebEShop.Controllers
 
         public ActionResult Delete(int id)
         {
-            //var productCategoryToBeDeleted = context.ProductCategories.Find(id);
-            //if(productCategoryToBeDeleted != null)
-            //{
-            //    context.ProductCategories.Remove(productCategoryToBeDeleted);
-            //}
-
-            using (var productCategoryToBeDeleted1 = context.ProductCategories.Find(id))
+            if(repository.RemoveCategory(id))
             {
-                try
-                {
-                    context.ProductCategories.Remove(productCategoryToBeDeleted1);
-                    context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    return RedirectToAction("Index", "Home", new { message = $"Product Category with id {id} was not found!" });
-                    //return ex.Message;
-                    //throw new NotFoundEntityException(ex.Message);
-                }
                 string path = $"ProductCategory with id {id} is deleted succesfully!";
                 return RedirectToAction("List", new { message = path });
             }
+            return RedirectToAction("Index", "Home", 
+                new { message = $"Product Category with id {id} was not found!" });
         }
 
         public ActionResult Edit(int id)

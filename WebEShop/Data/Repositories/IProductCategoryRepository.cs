@@ -12,7 +12,7 @@ namespace WebEShop.Data.Repositories
         ProductCategory GetCategory(int id);
         IEnumerable<ProductCategory> GetAllCategories();
         void AddCategory(ProductCategory category);
-        void RemoveCategory(int id);
+        bool RemoveCategory(int id);
         void UpdateCategory(int id, ProductCategory category);
 
     }

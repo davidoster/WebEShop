@@ -42,16 +42,20 @@ namespace WebEShop.Data.Repositories
             }
         }
 
-        public void RemoveCategory(int id)
+        public bool RemoveCategory(int id)
         {
+            bool result = false;
             var category = GetCategory(id);
             if (category != null)
             {
                 using (var db = _dbContext as WebEShopDBContext)
                 {
                     db.ProductCategories.Remove(category);
+                    db.SaveChanges();
+                    result = true;
                 }
             }
+            return result;
         }
 
         public void UpdateCategory(int id, ProductCategory category)
