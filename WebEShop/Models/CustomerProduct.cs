@@ -20,6 +20,12 @@ namespace WebEShop.Models
         public double Price { get; set; } // Price
         //public int Product_CategoryId { get; set; } // Category_Id
         //public virtual ProductCategory Category { get; set; }
+        public CustomerProduct(string title, string description, double price)
+        {
+            Title = title;
+            Description = description;
+            Price = price;
+        }
 
         public override string ToString()
         {

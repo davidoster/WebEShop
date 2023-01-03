@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebEShop.Data;
+using WebEShop.Data.Repositories;
 using WebEShop.Models;
 
 namespace WebEShop.Controllers
@@ -12,37 +13,39 @@ namespace WebEShop.Controllers
     public class ProductCategoriesController : Controller
     {
         private WebEShopDBContext context;
+        private ProductCategoryRepository repository;
 
         public ProductCategoriesController()
         {
             context = new WebEShopDBContext();
+            repository = new ProductCategoryRepository(context);
         }
 
         // HTTP CLASSICAL METHODS: POST(C), GET(R), PUT(U), DELETE(D)
         // GET: ProductCategories
         public ActionResult Index()
         {
-            context.ProductCategories.Add(new ProductCategory()
-            {
-                Title = "Pen",
-                Description = "Pen Description",
-                Products = new List<CustomerProduct>()
-                {
-                    new CustomerProduct()
-                    {
-                        Title = "Red  Pen",
-                        Description = "Red Pen Description",
-                        Price = 10.45
-                    },
-                    new CustomerProduct()
-                    {
-                        Title = "Blue  Pen",
-                        Description = "Blue Pen Description",
-                        Price = 10.45
-                    }
-                }
-            });
-            context.SaveChanges();
+            //context.ProductCategories.Add(new ProductCategory()
+            //{
+            //    Title = "Pen",
+            //    Description = "Pen Description",
+            //    Products = new List<CustomerProduct>()
+            //    {
+            //        new CustomerProduct()
+            //        {
+            //            Title = "Red  Pen",
+            //            Description = "Red Pen Description",
+            //            Price = 10.45
+            //        },
+            //        new CustomerProduct()
+            //        {
+            //            Title = "Blue  Pen",
+            //            Description = "Blue Pen Description",
+            //            Price = 10.45
+            //        }
+            //    }
+            //});
+            //context.SaveChanges();
             return View();
         }
 
@@ -75,8 +78,9 @@ namespace WebEShop.Controllers
             {
                 result = updated;
             }
-            context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
-            context.SaveChanges();
+            //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
+            //context.SaveChanges();
+            repository.AddCategory(productCategory);
             return RedirectToAction("List", 
                 new { message = $"A New Product Category is been {result} successfully!" });
         }
