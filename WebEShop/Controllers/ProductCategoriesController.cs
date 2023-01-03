@@ -80,7 +80,7 @@ namespace WebEShop.Controllers
             }
             //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
             //context.SaveChanges();
-            repository.AddCategory(productCategory);
+            repository.Add(productCategory);
             return RedirectToAction("List", 
                 new { message = $"A New Product Category is been {result} successfully!" });
         }
@@ -95,7 +95,7 @@ namespace WebEShop.Controllers
 
         public ActionResult Details(int id)
         {
-            using (var category = repository.GetCategory(id))
+            using (var category = repository.Get(id))
             //using (var category = context.ProductCategories.Find(id))
             {
                 if(category != null)
@@ -121,7 +121,7 @@ namespace WebEShop.Controllers
 
         public ActionResult Delete(int id)
         {
-            if(repository.RemoveCategory(id))
+            if(repository.Remove(id))
             {
                 string path = $"ProductCategory with id {id} is deleted succesfully!";
                 return RedirectToAction("List", new { message = path });
@@ -132,7 +132,7 @@ namespace WebEShop.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View(context.ProductCategories.Find(id));
+            return View(repository.Get(id));
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using WebEShop.Models;
 
 namespace WebEShop.Data.Repositories
 {
-    public class ProductCategoryRepository : IProductCategoryRepository
+    public class ProductCategoryRepository : IGenericRepository<ProductCategory>, 
     {
         private DbContext _dbContext;
 
@@ -16,16 +17,16 @@ namespace WebEShop.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddCategory(ProductCategory category)
+        public void Add(ProductCategory category)
         {
             using (var db = _dbContext as WebEShopDBContext)
             {
-                db.ProductCategories.Add(category);
+                db.ProductCategories.AddOrUpdate(category);
                 db.SaveChanges();
             }
         }
 
-        public IEnumerable<ProductCategory> GetAllCategories()
+        public IEnumerable<ProductCategory> GetAll()
         {
             using (var db = _dbContext as WebEShopDBContext)
             {
@@ -33,7 +34,7 @@ namespace WebEShop.Data.Repositories
             }
         }
 
-        public ProductCategory GetCategory(int id)
+        public ProductCategory Get(int id)
         {
             using (var db = _dbContext as WebEShopDBContext)
             {
@@ -42,10 +43,10 @@ namespace WebEShop.Data.Repositories
             }
         }
 
-        public bool RemoveCategory(int id)
+        public bool Remove(int id)
         {
             bool result = false;
-            var category = GetCategory(id);
+            var category = Get(id);
             if (category != null)
             {
                 using (var db = _dbContext as WebEShopDBContext)
@@ -58,9 +59,9 @@ namespace WebEShop.Data.Repositories
             return result;
         }
 
-        public void UpdateCategory(int id, ProductCategory category)
+        public void Update(int id, ProductCategory category)
         {
-            var dbCategory = GetCategory(id);
+            var dbCategory = Get(id);
             //dbCategory = category;
             
         }

@@ -265,6 +265,8 @@
     <Compile Include="Controllers\KatiController.cs" />
     <Compile Include="Controllers\NotFoundEntityException.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
+    <Compile Include="Data\Repositories\CustomerProductRepository.cs" />
+    <Compile Include="Data\Repositories\IGenericRepository.cs" />
     <Compile Include="Data\Repositories\IProductCategoryRepository.cs" />
     <Compile Include="Data\Repositories\ProductCategoryRepository.cs" />
     <Compile Include="Data\Validations\PriceValidationAttribute.cs" />
