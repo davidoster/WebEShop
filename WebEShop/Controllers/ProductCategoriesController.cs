@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebEShop.Data;
 using WebEShop.Data.Repositories;
 using WebEShop.Models;
+using WebEShop.Services;
 
 namespace WebEShop.Controllers
 {
@@ -14,6 +15,7 @@ namespace WebEShop.Controllers
     {
         private WebEShopDBContext context;
         private ProductCategoryRepository repository;
+        private UnitOfWork unit = new UnitOfWork();
 
         public ProductCategoriesController()
         {
@@ -80,7 +82,9 @@ namespace WebEShop.Controllers
             }
             //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
             //context.SaveChanges();
-            repository.Add(productCategory);
+            //repository.Add(productCategory);
+            unit.Category.Add(productCategory);
+            unit.Save();
             return RedirectToAction("List", 
                 new { message = $"A New Product Category is been {result} successfully!" });
         }
@@ -88,7 +92,7 @@ namespace WebEShop.Controllers
         public ViewResult List(string message)
         {
             ViewBag.Message = message;
-            var categories = repository.GetAllCategories();
+            var categories = repository.GetAll();
             return View(categories);
             //return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }

@@ -8,7 +8,7 @@ using WebEShop.Models;
 
 namespace WebEShop.Data.Repositories
 {
-    public class ProductCategoryRepository : IGenericRepository<ProductCategory>, 
+    public class ProductCategoryRepository : IGenericRepository<ProductCategory>
     {
         private DbContext _dbContext;
 
@@ -22,7 +22,7 @@ namespace WebEShop.Data.Repositories
             using (var db = _dbContext as WebEShopDBContext)
             {
                 db.ProductCategories.AddOrUpdate(category);
-                db.SaveChanges();
+                //db.SaveChanges();
             }
         }
 

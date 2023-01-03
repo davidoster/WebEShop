@@ -7,7 +7,7 @@ using WebEShop.Models;
 
 namespace WebEShop.Data.Repositories
 {
-    internal interface IGenericRepository<T>
+    public interface IGenericRepository<T> where T: class
     {
         T Get(int id);
         IEnumerable<T> GetAll();

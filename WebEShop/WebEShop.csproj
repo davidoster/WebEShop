@@ -286,6 +286,7 @@
     <Compile Include="Models\CustomerProduct.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="libman.json" />
