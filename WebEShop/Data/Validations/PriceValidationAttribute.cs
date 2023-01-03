@@ -21,7 +21,6 @@ namespace System.ComponentModel.DataAnnotations
 
         public override bool IsValid(object value) //IsValid(double minValue, double maxValue)
         {
-            
             bool isValid = true;
 
             if(value != null && ((double)value < _minValue || (double)value > _maxValue))

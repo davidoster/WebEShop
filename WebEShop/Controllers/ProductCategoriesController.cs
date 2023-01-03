@@ -30,13 +30,13 @@ namespace WebEShop.Controllers
                 {
                     new CustomerProduct()
                     {
-                        Title = "Red Pen",
+                        Title = "Red  Pen",
                         Description = "Red Pen Description",
                         Price = 10.45
                     },
                     new CustomerProduct()
                     {
-                        Title = "Blue Pen",
+                        Title = "Blue  Pen",
                         Description = "Blue Pen Description",
                         Price = 10.45
                     }
@@ -86,9 +86,30 @@ namespace WebEShop.Controllers
             ViewBag.Message = message;
             return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }
-        public ActionResult Details(int id) 
+
+        public ActionResult Details(int id)
         {
-            return View(context.ProductCategories.Find(id));
+            using (var category = context.ProductCategories.Find(id))
+            {
+                if(category != null)
+                {
+                    var products = category.Products.ToList();
+                    if(products.Count > 0)
+                    {
+                        //ViewBag.Products = true;
+                        ViewData.Add("ProductsList", products); // ViewBag.Products = products;
+                    }
+
+                    //else
+                    //{
+                    //    ViewData.Add("Products", "No Products");
+                    //}
+                    return View(category);
+                }
+                ViewBag.Result = $"No ProductCategory exists with id = {id}";
+                return View();
+            }
+            
         }
 
         public ActionResult Delete(int id)
@@ -116,7 +137,6 @@ namespace WebEShop.Controllers
                 return RedirectToAction("List", new { message = path });
             }
         }
-
 
         public ActionResult Edit(int id)
         {

@@ -27,6 +27,25 @@
         </dd>
 
     </dl>
+    <ol>
+       @{
+           var products = new object(); //new List<WebEShop.Models.ProductCategory>();
+           ViewData.TryGetValue("ProductsList", out products);
+           var productsList = new List<WebEShop.Models.CustomerProduct>();
+           productsList = (List<WebEShop.Models.CustomerProduct>)products;
+           if (productsList != null && productsList.Count > 0)
+           {
+               foreach (var product in productsList)
+               {
+                   <li>@product</li>
+               }
+            }
+            else
+            {
+                @ViewBag.Result
+            }
+       }
+    </ol>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
