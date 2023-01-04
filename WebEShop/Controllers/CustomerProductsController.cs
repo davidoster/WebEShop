@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebEShop.Data;
+using WebEShop.Data.Repositories;
 using WebEShop.Models;
 
 namespace WebEShop.Controllers
@@ -14,10 +15,25 @@ namespace WebEShop.Controllers
     public class CustomerProductsController : Controller
     {
         private WebEShopDBContext db = new WebEShopDBContext();
+        private IGenericRepository<CustomerProduct> repository;
+        private IGenericRepository<ProductCategory> categoryRepository;
+
+        public CustomerProductsController()
+        {
+            repository = new CustomerProductRepository(db);
+            categoryRepository = new ProductCategoryRepository(db);
+        }
 
         // GET: CustomerProducts
         public ActionResult Index()
         {
+            repository.Add(new CustomerProduct() 
+            { 
+                Title = "Dynamic Product 1",
+                Description = "Dynamic Product 1 description",
+                Price = 25,
+                Category = categoryRepository.Get(5)
+            });
             return View(db.CustomerProducts.ToList());
         }
 
@@ -47,12 +63,13 @@ namespace WebEShop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Price")] CustomerProduct customerProduct)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Price,Category")] CustomerProduct customerProduct)
         {
             if (ModelState.IsValid)
             {
-                db.CustomerProducts.Add(customerProduct);
-                db.SaveChanges();
+                //db.CustomerProducts.Add(customerProduct);
+                //db.SaveChanges();
+                repository.Add(customerProduct);
                 return RedirectToAction("Index");
             }
 

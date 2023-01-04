@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using WebEShop.Models;
@@ -18,7 +19,9 @@ namespace WebEShop.Data.Repositories
 
         public void Add(CustomerProduct entity)
         {
-            throw new NotImplementedException();
+            var db = _dbContext as WebEShopDBContext;
+            db.CustomerProducts.AddOrUpdate(entity);
+            db.SaveChanges();
         }
 
         public CustomerProduct Get(int id)
