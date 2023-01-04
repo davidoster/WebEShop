@@ -9,6 +9,7 @@ namespace WebEShop.Models
 {
     public class ProductCategory: IDisposable
     {
+        [DisplayName("Category Id")]
         public int Id { get; set; } // Id (Primary key)
         
         [DisplayName("Product Title")]

@@ -282,6 +282,10 @@
     <Compile Include="Migrations\202301021009558_ChangesToCustomerProduct.designer.cs">
       <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs" />
+    <Compile Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.designer.cs">
+      <DependentUpon>202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerProduct.cs" />
     <Compile Include="Models\ProductCategory.cs" />
@@ -405,11 +409,11 @@
     <Content Include="Views\ProductCategories\Details.cshtml" />
     <Content Include="Views\ProductCategories\Create.cshtml" />
     <Content Include="Views\ProductCategories\Edit.cshtml" />
-    <Content Include="Views\CustomerProducts\Create.cshtml" />
     <Content Include="Views\CustomerProducts\Delete.cshtml" />
+    <Content Include="Views\CustomerProducts\Index.cshtml" />
+    <Content Include="Views\CustomerProducts\Create.cshtml" />
     <Content Include="Views\CustomerProducts\Details.cshtml" />
     <Content Include="Views\CustomerProducts\Edit.cshtml" />
-    <Content Include="Views\CustomerProducts\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -429,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301021009558_ChangesToCustomerProduct.resx">
       <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.resx">
+      <DependentUpon>202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
