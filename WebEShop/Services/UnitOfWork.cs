@@ -12,10 +12,10 @@ namespace WebEShop.Services
     public class UnitOfWork : IDisposable
     {
 
-        private WebEShopDBContext _db = new WebEShopDBContext();
+        private DbContext _db = new WebEShopDBContext();
 
-        private IGenericRepository<ProductCategory> _categoryRepository;
-        private IGenericRepository<CustomerProduct> _productRepository;
+        //private IGenericRepository<ProductCategory> _categoryRepository;
+        //private IGenericRepository<CustomerProduct> _productRepository;
 
         public IGenericRepository<ProductCategory> Category { get; set; }
         public IGenericRepository<CustomerProduct> Product { get; set; }

@@ -15,12 +15,12 @@ namespace WebEShop.Controllers
     {
         private WebEShopDBContext context;
         private ProductCategoryRepository repository;
-        private UnitOfWork unit = new UnitOfWork();
+        //private UnitOfWork unit = new UnitOfWork();
 
         public ProductCategoriesController()
         {
-            context = new WebEShopDBContext();
-            repository = new ProductCategoryRepository(context);
+            context = new WebEShopDBContext(); // WITHOUT UoW
+            repository = new ProductCategoryRepository(context); // WITHOUT UoW
         }
 
         // HTTP CLASSICAL METHODS: POST(C), GET(R), PUT(U), DELETE(D)
@@ -82,9 +82,9 @@ namespace WebEShop.Controllers
             }
             //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
             //context.SaveChanges();
-            //repository.Add(productCategory);
-            unit.Category.Add(productCategory);
-            unit.Save();
+            repository.Add(productCategory);
+            //unit.Category.Add(productCategory);
+            //unit.Save();
             return RedirectToAction("List", 
                 new { message = $"A New Product Category is been {result} successfully!" });
         }
@@ -92,17 +92,19 @@ namespace WebEShop.Controllers
         public ViewResult List(string message)
         {
             ViewBag.Message = message;
-            var categories = repository.GetAll();
+            var categories = repository.GetAll();   // unit.Category.GetAll();
             return View(categories);
             //return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }
 
         public ActionResult Details(int id)
         {
+            context = new WebEShopDBContext(); // WITHOUT UoW
+            repository = new ProductCategoryRepository(context);
             using (var category = repository.Get(id))
             //using (var category = context.ProductCategories.Find(id))
             {
-                if(category != null)
+                if(category != null && category.Products != null)
                 {
                     var products = category.Products.ToList();
                     if(products.Count > 0)

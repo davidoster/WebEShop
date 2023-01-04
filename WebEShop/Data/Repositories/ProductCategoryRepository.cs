@@ -19,28 +19,36 @@ namespace WebEShop.Data.Repositories
 
         public void Add(ProductCategory category)
         {
-            using (var db = _dbContext as WebEShopDBContext)
-            {
-                db.ProductCategories.AddOrUpdate(category);
-                //db.SaveChanges();
-            }
+            var db = _dbContext as WebEShopDBContext;
+            db.ProductCategories.AddOrUpdate(category);
+            db.SaveChanges();
+            //using (var db = _dbContext as WebEShopDBContext)
+            //{
+            //    db.ProductCategories.AddOrUpdate(category);
+            //    db.SaveChanges();
+            //}
         }
 
         public IEnumerable<ProductCategory> GetAll()
         {
-            using (var db = _dbContext as WebEShopDBContext)
-            {
-                return db.ProductCategories.ToList();
-            }
+            var db = _dbContext as WebEShopDBContext;
+            return db.ProductCategories.ToList();
+            //using (var db = _dbContext as WebEShopDBContext)
+            //{
+            //    return db.ProductCategories.ToList();
+            //}
         }
 
         public ProductCategory Get(int id)
         {
-            using (var db = _dbContext as WebEShopDBContext)
-            {
-                var category = db.ProductCategories.Find(id);
-                return category;
-            }
+            var db = _dbContext as WebEShopDBContext;
+            var category = db.ProductCategories.Find(id);
+            return category;
+            //using (var db = _dbContext as WebEShopDBContext)
+            //{
+            //    var category = db.ProductCategories.Find(id);
+            //    return category;
+            //}
         }
 
         public bool Remove(int id)
@@ -49,12 +57,16 @@ namespace WebEShop.Data.Repositories
             var category = Get(id);
             if (category != null)
             {
-                using (var db = _dbContext as WebEShopDBContext)
-                {
-                    db.ProductCategories.Remove(category);
-                    db.SaveChanges();
-                    result = true;
-                }
+                var db = _dbContext as WebEShopDBContext;
+                db.ProductCategories.Remove(category);
+                db.SaveChanges();
+                result = true;
+                //using (var db = _dbContext as WebEShopDBContext)
+                //{
+                //    db.ProductCategories.Remove(category);
+                //    db.SaveChanges();
+                //    result = true;
+                //}
             }
             return result;
         }

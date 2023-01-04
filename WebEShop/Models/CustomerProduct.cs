@@ -18,8 +18,13 @@ namespace WebEShop.Models
         //[Range(0, double.MaxValue, ErrorMessage = "It must be a decimal/number between {0} and {1}.")]
         [PriceValidation(5,50000)]
         public double Price { get; set; } // Price
-        //public int Product_CategoryId { get; set; } // Category_Id
-        //public virtual ProductCategory Category { get; set; }
+                                          //public int Product_CategoryId { get; set; } // Category_Id
+                                          //public virtual ProductCategory Category { get; set; }
+        public CustomerProduct()
+        {
+
+        }
+
         public CustomerProduct(string title, string description, double price)
         {
             Title = title;
