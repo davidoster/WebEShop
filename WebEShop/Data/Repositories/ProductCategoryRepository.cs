@@ -8,7 +8,7 @@ using WebEShop.Models;
 
 namespace WebEShop.Data.Repositories
 {
-    public class ProductCategoryRepository : IGenericRepository<ProductCategory>
+    public class ProductCategoryRepository : IGenericRepository<ProductCategory>, IProductCategoryRepository
     {
         private DbContext _dbContext;
 
@@ -17,16 +17,22 @@ namespace WebEShop.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public void Add(ProductCategory category)
+        public ProductCategory Add(ProductCategory category)
         {
             var db = _dbContext as WebEShopDBContext;
             db.ProductCategories.AddOrUpdate(category);
             db.SaveChanges();
+            return category;
             //using (var db = _dbContext as WebEShopDBContext)
             //{
             //    db.ProductCategories.AddOrUpdate(category);
             //    db.SaveChanges();
             //}
+        }
+
+        public ProductCategory Add(ProductCategory entity, int id)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<ProductCategory> GetAll()
@@ -71,11 +77,13 @@ namespace WebEShop.Data.Repositories
             return result;
         }
 
-        public void Update(int id, ProductCategory category)
+        public ProductCategory Update(int id, ProductCategory category)
         {
             var dbCategory = Get(id);
-            //dbCategory = category;
-            
+            dbCategory = category;
+            return dbCategory;
         }
+
+        
     }
 }

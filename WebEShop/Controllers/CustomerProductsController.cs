@@ -106,9 +106,11 @@ namespace WebEShop.Controllers
             {
                 //db.CustomerProducts.Add(customerProduct);
                 //db.SaveChanges();
-                // get tge Category Id and assign a Category to Category prperty of the customerProduct
+                // get the Category Id and assign a Category to Category prperty of the customerProduct
                 customerProduct.Category = categoryRepository.Get(Category);
-                repository.Add(customerProduct);
+                //repository.Add(customerProduct); // comes from IGenericRepository
+                var dbProduct = (repository as CustomerProductRepository).Add(customerProduct, Category); // new product BUT the Category DOESN'T KNOW IT
+                dbProduct.Category.Products.Add(dbProduct); // fill the column(field) ProductCategory_Id with the product id
                 return RedirectToAction("Index");
             }
 

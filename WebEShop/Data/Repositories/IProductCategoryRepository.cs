@@ -9,11 +9,7 @@ namespace WebEShop.Data.Repositories
 {
     internal interface IProductCategoryRepository
     {
-        ProductCategory GetCategory(int id);
-        IEnumerable<ProductCategory> GetAllCategories();
-        void AddCategory(ProductCategory category);
-        bool RemoveCategory(int id);
-        void UpdateCategory(int id, ProductCategory category);
+        ProductCategory Add(ProductCategory entity, int id);
 
     }
 }

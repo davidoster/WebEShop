@@ -266,6 +266,7 @@
     <Compile Include="Controllers\NotFoundEntityException.cs" />
     <Compile Include="Controllers\ProductCategoriesController.cs" />
     <Compile Include="Data\Repositories\CustomerProductRepository.cs" />
+    <Compile Include="Data\Repositories\ICustomerProductRepository.cs" />
     <Compile Include="Data\Repositories\IGenericRepository.cs" />
     <Compile Include="Data\Repositories\IProductCategoryRepository.cs" />
     <Compile Include="Data\Repositories\ProductCategoryRepository.cs" />

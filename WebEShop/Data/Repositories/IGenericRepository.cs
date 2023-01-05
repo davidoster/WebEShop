@@ -11,8 +11,9 @@ namespace WebEShop.Data.Repositories
     {
         T Get(int id);
         IEnumerable<T> GetAll();
-        void Add(T entity);
+        T Add(T entity);
+        
         bool Remove(int id);
-        void Update(int id, T entity);
+        T Update(int id, T entity);
     }
 }
