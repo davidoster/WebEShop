@@ -27,8 +27,8 @@ namespace WebEShop.Controllers
         // GET: CustomerProducts
         public ActionResult Index()
         {
-            repository.Add(new CustomerProduct() 
-            { 
+            repository.Add(new CustomerProduct()
+            {
                 Title = "Dynamic Product 1",
                 Description = "Dynamic Product 1 description",
                 Price = 25,
@@ -55,6 +55,40 @@ namespace WebEShop.Controllers
         // GET: CustomerProducts/Create
         public ActionResult Create()
         {
+            var categories = categoryRepository.GetAll();
+            //ViewBag.Categories = categories;
+
+            if (categories != null && categories.Count() > 0)
+            {
+                //var myFirstSelectListItem = new SelectListItem()
+                //{
+                //    Disabled = false,
+                //    Group = new SelectListGroup(),
+                //    Selected = true,
+                //    Text = $"{categories.FirstOrDefault().Id} {categories.FirstOrDefault().Title}",
+                //    Value = categories.FirstOrDefault().Id.ToString()
+                //};
+
+                var selectListOfCategories = new List<SelectListItem>();
+                //var x = new SelectList(parameters);
+                //selectListOfCategories.Add(myFirstSelectListItem);
+
+                foreach (var category in categories)
+                {
+                    var selectListItem = new SelectListItem()
+                    {
+                        Disabled = false,
+                        Group = new SelectListGroup(),
+                        Selected = false,
+                        Text = $"{category.Id} {category.Title}",
+                        Value = category.Id.ToString()
+                    };
+                    selectListOfCategories.Add(selectListItem);
+                }
+                selectListOfCategories.ElementAt(0).Selected = true;
+                ViewBag.Categories = selectListOfCategories;
+            }
+
             return View();
         }
 

@@ -31,7 +31,10 @@ namespace WebEShop.Data.Repositories
 
         public IEnumerable<CustomerProduct> GetAll()
         {
-            throw new NotImplementedException();
+            var db = _dbContext as WebEShopDBContext;
+            return db.CustomerProducts;
+            //return db.CustomerProducts.AsEnumerable();
+            //return db.CustomerProducts.ToList();
         }
 
         public bool Remove(int id)
