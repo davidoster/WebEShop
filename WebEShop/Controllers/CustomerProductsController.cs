@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -73,12 +74,13 @@ namespace WebEShop.Controllers
                 //var x = new SelectList(parameters);
                 //selectListOfCategories.Add(myFirstSelectListItem);
 
+                var group = new SelectListGroup();
                 foreach (var category in categories)
                 {
                     var selectListItem = new SelectListItem()
                     {
                         Disabled = false,
-                        Group = new SelectListGroup(),
+                        Group = group,
                         Selected = false,
                         Text = $"{category.Id} {category.Title}",
                         Value = category.Id.ToString()
@@ -86,7 +88,8 @@ namespace WebEShop.Controllers
                     selectListOfCategories.Add(selectListItem);
                 }
                 selectListOfCategories.ElementAt(0).Selected = true;
-                ViewBag.Categories = selectListOfCategories;
+                ViewData.Add("Category", selectListOfCategories);
+                //ViewBag.Categories = selectListOfCategories;
             }
 
             return View();
@@ -97,12 +100,14 @@ namespace WebEShop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Price,Category")] CustomerProduct customerProduct)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Price")] CustomerProduct customerProduct, [Bind(Include = "Category")]int Category)
         {
             if (ModelState.IsValid)
             {
                 //db.CustomerProducts.Add(customerProduct);
                 //db.SaveChanges();
+                // get tge Category Id and assign a Category to Category prperty of the customerProduct
+                customerProduct.Category = categoryRepository.Get(Category);
                 repository.Add(customerProduct);
                 return RedirectToAction("Index");
             }
