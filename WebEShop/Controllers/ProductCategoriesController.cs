@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using WebEShop.Data;
 using WebEShop.Data.Repositories;
 using WebEShop.Models;
-using WebEShop.Services;
 
 namespace WebEShop.Controllers
 {
@@ -72,14 +67,7 @@ namespace WebEShop.Controllers
             string created = "created";
             string updated = "updated";
             string result = "";
-            if (productCategory.Id == 0)
-            {
-                result = created;
-            }
-            else
-            {
-                result = updated;
-            }
+            result = productCategory.Id == 0 ? created : updated;
             //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
             //context.SaveChanges();
             repository.Add(productCategory);
@@ -129,7 +117,7 @@ namespace WebEShop.Controllers
         {
             if(repository.Remove(id))
             {
-                string path = $"ProductCategory with id {id} is deleted succesfully!";
+                string path = $"ProductCategory with id {id} is deleted successfully!";
                 return RedirectToAction("List", new { message = path });
             }
             return RedirectToAction("Index", "Home", 
