@@ -11,27 +11,20 @@ namespace WebEShop.Controllers
 {
     public class CustomerProductsController : Controller
     {
-        private WebEShopDBContext db = new WebEShopDBContext();
-        private IGenericRepository<CustomerProduct> repository;
-        private IGenericRepository<ProductCategory> categoryRepository;
+        private WebEShopDBContext _db = new WebEShopDBContext();
+        private IGenericRepository<CustomerProduct> _repository;
+        private IGenericRepository<ProductCategory> _categoryRepository;
 
         public CustomerProductsController()
         {
-            repository = new CustomerProductRepository(db);
-            categoryRepository = new ProductCategoryRepository(db);
+            _repository = new CustomerProductRepository(_db);
+            _categoryRepository = new ProductCategoryRepository(_db);
         }
 
         // GET: CustomerProducts
         public ActionResult Index()
         {
-            repository.Add(new CustomerProduct()
-            {
-                Title = "Dynamic Product 1",
-                Description = "Dynamic Product 1 description",
-                Price = 25,
-                Category = categoryRepository.Get(5)
-            });
-            return View(db.CustomerProducts.ToList());
+            return View(_db.CustomerProducts.ToList());
         }
 
         // GET: CustomerProducts/Details/5
@@ -41,7 +34,7 @@ namespace WebEShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomerProduct customerProduct = db.CustomerProducts.Find(id);
+            CustomerProduct customerProduct = _db.CustomerProducts.Find(id);
             if (customerProduct == null)
             {
                 return HttpNotFound();
@@ -52,42 +45,24 @@ namespace WebEShop.Controllers
         // GET: CustomerProducts/Create
         public ActionResult Create()
         {
-            var categories = categoryRepository.GetAll();
-            //ViewBag.Categories = categories;
-
-            if (categories != null && categories.Count() > 0)
+            var categories = _categoryRepository.GetAll();
+            if (categories == null || categories.Count() <= 0) return View();
+            var selectListOfCategories = new List<SelectListItem>();
+            var group = new SelectListGroup();
+            foreach (var category in categories)
             {
-                //var myFirstSelectListItem = new SelectListItem()
-                //{
-                //    Disabled = false,
-                //    Group = new SelectListGroup(),
-                //    Selected = true,
-                //    Text = $"{categories.FirstOrDefault().Id} {categories.FirstOrDefault().Title}",
-                //    Value = categories.FirstOrDefault().Id.ToString()
-                //};
-
-                var selectListOfCategories = new List<SelectListItem>();
-                //var x = new SelectList(parameters);
-                //selectListOfCategories.Add(myFirstSelectListItem);
-
-                var group = new SelectListGroup();
-                foreach (var category in categories)
+                var selectListItem = new SelectListItem()
                 {
-                    var selectListItem = new SelectListItem()
-                    {
-                        Disabled = false,
-                        Group = group,
-                        Selected = false,
-                        Text = $"{category.Id} {category.Title}",
-                        Value = category.Id.ToString()
-                    };
-                    selectListOfCategories.Add(selectListItem);
-                }
-                selectListOfCategories.ElementAt(0).Selected = true;
-                ViewData.Add("Category", selectListOfCategories);
-                //ViewBag.Categories = selectListOfCategories;
+                    Disabled = false,
+                    Group = group,
+                    Selected = false,
+                    Text = $@"{category.Id} {category.Title}",
+                    Value = category.Id.ToString()
+                };
+                selectListOfCategories.Add(selectListItem);
             }
-
+            selectListOfCategories.ElementAt(0).Selected = true;
+            ViewData.Add("Category", selectListOfCategories);
             return View();
         }
 
@@ -100,16 +75,11 @@ namespace WebEShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.CustomerProducts.Add(customerProduct);
-                //db.SaveChanges();
-                // get the Category Id and assign a Category to Category prperty of the customerProduct
-                customerProduct.Category = categoryRepository.Get(Category);
-                //repository.Add(customerProduct); // comes from IGenericRepository
-                var dbProduct = (repository as CustomerProductRepository).Add(customerProduct, Category); // new product BUT the Category DOESN'T KNOW IT
-                dbProduct.Category.Products.Add(dbProduct); // PLEASE FIX ME // fill the column(field) ProductCategory_Id with the product id
+                customerProduct.Category = _categoryRepository.Get(Category);
+                var dbProduct = (_repository as CustomerProductRepository).Add(customerProduct, Category); // new product BUT the Category DOESN'T KNOW IT
+                // DELETE THIS LINE!!! It is not needed anymore!!!! //dbProduct.Category.Products.Add(dbProduct); // PLEASE FIX ME // fill the column(field) ProductCategory_Id with the product id
                 return RedirectToAction("Index");
             }
-
             return View(customerProduct);
         }
 
@@ -120,7 +90,7 @@ namespace WebEShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomerProduct customerProduct = db.CustomerProducts.Find(id);
+            CustomerProduct customerProduct = _db.CustomerProducts.Find(id);
             if (customerProduct == null)
             {
                 return HttpNotFound();
@@ -137,8 +107,8 @@ namespace WebEShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customerProduct).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(customerProduct).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(customerProduct);
@@ -151,7 +121,7 @@ namespace WebEShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomerProduct customerProduct = db.CustomerProducts.Find(id);
+            CustomerProduct customerProduct = _db.CustomerProducts.Find(id);
             if (customerProduct == null)
             {
                 return HttpNotFound();
@@ -164,9 +134,9 @@ namespace WebEShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CustomerProduct customerProduct = db.CustomerProducts.Find(id);
-            db.CustomerProducts.Remove(customerProduct);
-            db.SaveChanges();
+            CustomerProduct customerProduct = _db.CustomerProducts.Find(id);
+            _db.CustomerProducts.Remove(customerProduct);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -174,7 +144,7 @@ namespace WebEShop.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -275,17 +275,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202212161427082_InitialCreate.cs" />
-    <Compile Include="Migrations\202212161427082_InitialCreate.designer.cs">
-      <DependentUpon>202212161427082_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301021009558_ChangesToCustomerProduct.cs" />
-    <Compile Include="Migrations\202301021009558_ChangesToCustomerProduct.designer.cs">
-      <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs" />
-    <Compile Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.designer.cs">
-      <DependentUpon>202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs</DependentUpon>
+    <Compile Include="Migrations\202301081217070_InitialCreate.cs" />
+    <Compile Include="Migrations\202301081217070_InitialCreate.designer.cs">
+      <DependentUpon>202301081217070_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CustomerProduct.cs" />
@@ -429,14 +421,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202212161427082_InitialCreate.resx">
-      <DependentUpon>202212161427082_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301021009558_ChangesToCustomerProduct.resx">
-      <DependentUpon>202301021009558_ChangesToCustomerProduct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.resx">
-      <DependentUpon>202301041149308_CustomerProductAddedCategoryNavigationAndChangesMaybeToProductCategory.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202301081217070_InitialCreate.resx">
+      <DependentUpon>202301081217070_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -9,7 +9,7 @@ namespace WebEShop.Data
 {
     public class WebEShopDBContext : DbContext
     {
-        public WebEShopDBContext(): base("name=WebEShopConnectionString")
+        public WebEShopDBContext(): base("name=WebEShopConnectionStringExperiment")
         {
 
         }
@@ -22,8 +22,8 @@ namespace WebEShop.Data
             //modelBuilder.Entity<ProductCategory>().Property(p => p.Description).IsOptional();
             //modelBuilder.Entity<CustomerProduct>()
             //    .HasRequired<ProductCategory>(c => c.Category).WithMany().WillCascadeOnDelete(true);
-            modelBuilder.Entity<ProductCategory>()
-                .HasMany<CustomerProduct>(product => product.Products).WithOptional().WillCascadeOnDelete(true);
+            //modelBuilder.Entity<ProductCategory>()
+            //    .HasMany<CustomerProduct>(product => product.Products).WithOptional().WillCascadeOnDelete(true);
 
         }
     }

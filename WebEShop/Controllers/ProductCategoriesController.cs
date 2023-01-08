@@ -8,50 +8,19 @@ namespace WebEShop.Controllers
 {
     public class ProductCategoriesController : Controller
     {
-        private WebEShopDBContext context;
-        private ProductCategoryRepository repository;
-        //private UnitOfWork unit = new UnitOfWork();
+        private WebEShopDBContext _context;
+        private ProductCategoryRepository _repository;
 
         public ProductCategoriesController()
         {
-            context = new WebEShopDBContext(); // WITHOUT UoW
-            repository = new ProductCategoryRepository(context); // WITHOUT UoW
+            _context = new WebEShopDBContext(); // WITHOUT UoW
+            _repository = new ProductCategoryRepository(_context); // WITHOUT UoW
         }
 
         // HTTP CLASSICAL METHODS: POST(C), GET(R), PUT(U), DELETE(D)
         // GET: ProductCategories
         public ActionResult Index()
         {
-            //context.ProductCategories.Add(new ProductCategory()
-            //{
-            //    Title = "Pen",
-            //    Description = "Pen Description",
-            //    Products = new List<CustomerProduct>()
-            //    {
-            //        new CustomerProduct()
-            //        {
-            //            Title = "Red  Pen",
-            //            Description = "Red Pen Description",
-            //            Price = 10.45
-            //        },
-            //        new CustomerProduct()
-            //        {
-            //            Title = "Blue  Pen",
-            //            Description = "Blue Pen Description",
-            //            Price = 10.45
-            //        }
-            //    }
-            //});
-            //context.SaveChanges();
-            return View();
-        }
-
-        public ViewResult MyDummyList()
-        {
-            //var listOfProductCategories = context.ProductCategories.ToList();
-            ////int idOfFirstProductOnCat0 = listOfProductCategories[0].Products.ToList()[0].Id;
-            
-            //ViewBag.ProductCategories = listOfProductCategories;
             return View();
         }
 
@@ -68,11 +37,7 @@ namespace WebEShop.Controllers
             string updated = "updated";
             string result = "";
             result = productCategory.Id == 0 ? created : updated;
-            //context.ProductCategories.AddOrUpdate(productCategory); // ModelBinding
-            //context.SaveChanges();
-            repository.Add(productCategory);
-            //unit.Category.Add(productCategory);
-            //unit.Save();
+            _repository.Add(productCategory);
             return RedirectToAction("List", 
                 new { message = $"A New Product Category is been {result} successfully!" });
         }
@@ -80,31 +45,23 @@ namespace WebEShop.Controllers
         public ViewResult List(string message)
         {
             ViewBag.Message = message;
-            var categories = repository.GetAll();   // unit.Category.GetAll();
+            var categories = _repository.GetAll();   // unit.Category.GetAll();
             return View(categories);
-            //return View(context.ProductCategories.AsEnumerable<ProductCategory>()); //as IEnumerable<ProductCategory>);
         }
 
         public ActionResult Details(int id)
         {
-            context = new WebEShopDBContext(); // WITHOUT UoW
-            repository = new ProductCategoryRepository(context);
-            using (var category = repository.Get(id))
-            //using (var category = context.ProductCategories.Find(id))
+            _context = new WebEShopDBContext(); // WITHOUT UoW
+            _repository = new ProductCategoryRepository(_context);
+            using (var category = _repository.Get(id))
             {
                 if(category != null && category.Products != null)
                 {
                     var products = category.Products.ToList();
                     if(products.Count > 0)
                     {
-                        //ViewBag.Products = true;
                         ViewData.Add("ProductsList", products); // ViewBag.Products = products;
                     }
-
-                    //else
-                    //{
-                    //    ViewData.Add("Products", "No Products");
-                    //}
                     return View(category);
                 }
                 ViewBag.Result = $"No ProductCategory exists with id = {id}";
@@ -115,7 +72,7 @@ namespace WebEShop.Controllers
 
         public ActionResult Delete(int id)
         {
-            if(repository.Remove(id))
+            if(_repository.Remove(id))
             {
                 string path = $"ProductCategory with id {id} is deleted successfully!";
                 return RedirectToAction("List", new { message = path });
@@ -126,7 +83,7 @@ namespace WebEShop.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View(repository.Get(id));
+            return View(_repository.Get(id));
         }
     }
 }
